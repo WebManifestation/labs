@@ -20,7 +20,11 @@ export default function Home() {
       </main>
 
       <footer className={styles.footer}>
-        <a href="https://github.com/WebManifestation/labs" target="_blank">
+        <a
+          href="https://github.com/WebManifestation/labs"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           GitHub Source
         </a>
       </footer>
