@@ -2,16 +2,23 @@ import Head from "next/head";
 import { createRef, Component } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import Stats from "stats.js";
 
 class SoundBars extends Component {
   constructor(props) {
     super(props);
     this.canvasRef = createRef();
     this.cubeList = [];
+    this.clockwise = false;
   }
   state = { isRecording: false };
 
   componentDidMount() {
+    const stats = new Stats();
+    stats.domElement.style.right = 0;
+    stats.domElement.style.left = "initial";
+    document.body.appendChild(stats.dom);
+
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(
       75,
@@ -19,7 +26,7 @@ class SoundBars extends Component {
       0.1,
       1000
     );
-    camera.position.set(0, 0, 24);
+    camera.position.set(0, 0, 12);
 
     const renderer = new THREE.WebGLRenderer();
     renderer.setPixelRatio(window.devicePixelRatio);
@@ -37,12 +44,15 @@ class SoundBars extends Component {
       renderer,
       camera,
       controls,
+      stats,
     };
 
     this.addLights();
     this.addObjects();
 
     this.animate();
+
+    window.addEventListener("resize", this.onWindowResize.bind(this), false);
   }
 
   addObjects() {
@@ -132,33 +142,64 @@ class SoundBars extends Component {
   }
 
   animate() {
-    const { scene, camera, renderer, cubeList, controls, analyser } =
+    const { scene, camera, renderer, controls, analyser, stats } =
       this.threeVars;
-    requestAnimationFrame(this.animate.bind(this));
+
+    stats.begin();
 
     for (let i = 0; i < this.cubeList.length; i++) {
       const cube = this.cubeList[i];
-      if (i % 2) {
-        cube.rotation.x += 0.001 * (i + 1);
-        cube.rotation.y += 0.001 * (i + 1);
-      } else {
-        cube.rotation.x -= 0.001 * (i + 1);
-        cube.rotation.y -= 0.001 * (i + 1);
-      }
+      //   if (i % 2) {
+      //     cube.rotation.x += 0.001 * (i + 1);
+      //     cube.rotation.y += 0.001 * (i + 1);
+      //   } else {
+      //     cube.rotation.x -= 0.001 * (i + 1);
+      //     cube.rotation.y -= 0.001 * (i + 1);
+      //   }
       if (analyser) {
         const fqData = analyser.getFrequencyData();
         const fqAvgData = analyser.getAverageFrequency();
         cube.scale.x = 0.3 + fqData[i] / 250;
         cube.scale.y = 0.3 + fqData[i] / 250;
         cube.scale.z = 0.3 + fqData[i] / 250;
-        controls.autoRotateSpeed = fqAvgData * 0.1;
+        // const zOffsetScale = 50 + 5 * i;
+        const zOffsetScale = 100;
+        const rotationScale = fqData[i] * 0.02;
+        if (i % 2) {
+          cube.position.z = fqAvgData / zOffsetScale;
+          cube.rotation.x += 0.001 * (i + 1) * rotationScale;
+          cube.rotation.y += 0.001 * (i + 1) * rotationScale;
+        } else {
+          cube.position.z = -fqAvgData / zOffsetScale;
+          cube.rotation.x -= 0.001 * (i + 1) * rotationScale;
+          cube.rotation.y -= 0.001 * (i + 1) * rotationScale;
+        }
+        const rotationDirection = this.clockwise ? -1 : 1;
+        controls.autoRotateSpeed = rotationDirection * fqAvgData * 0.1;
+        // if (fqAvgData > 100) {
+        //   this.clockwise = !this.clockwise;
+        // }
       }
     }
 
     controls.update();
 
     renderer.render(scene, camera);
+
+    requestAnimationFrame(this.animate.bind(this));
+
+    stats.end();
   }
+
+  onWindowResize() {
+    if (this.threeVars) {
+      const { camera, renderer } = this.threeVars;
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    }
+  }
+
   render() {
     return (
       <>
