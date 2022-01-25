@@ -48,17 +48,16 @@ class SoundBars extends Component {
     };
 
     this.addLights();
-    this.addObjects();
 
     this.animate();
 
     window.addEventListener("resize", this.onWindowResize.bind(this), false);
   }
 
-  addObjects() {
+  addObjects(soundChannels) {
     const { scene } = this.threeVars;
 
-    const n = 8;
+    const n = Math.floor(Math.sqrt(soundChannels));
     const cubeSize = 1;
 
     const padding = 1;
@@ -128,7 +127,7 @@ class SoundBars extends Component {
       isRecording: true,
     });
 
-    const fftSize = 64 * 2;
+    const fftSize = 128 * 2;
     const audio = new THREE.Audio(listener);
     var context = listener.context;
     var source = context.createMediaStreamSource(audioStream);
@@ -137,6 +136,8 @@ class SoundBars extends Component {
     // audio.setVolume(0);
 
     const analyser = new THREE.AudioAnalyser(audio, fftSize);
+
+    this.addObjects(analyser.data.length);
 
     this.threeVars.analyser = analyser;
   }
