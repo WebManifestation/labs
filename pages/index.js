@@ -1,9 +1,10 @@
 import Head from "next/head";
+import Navigation from "../components/Navigation";
 import styles from "../styles/Home.module.css";
 
 export default function Home() {
   return (
-    <div className={styles.container}>
+    <>
       <Head>
         <title>Labs</title>
         <meta
@@ -13,21 +14,23 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+      <Navigation />
+
+      <p className={styles.description}>
+        A space for me to try out some cool web stuff
+      </p>
+
       <main className={styles.main}>
-        <h1 className={styles.title}>Labs</h1>
-
-        <p>A space for me to try out some cool web stuff</p>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://github.com/WebManifestation/labs"
-          target="_blank"
-          rel="noopener noreferrer"
+        <section
+          onClick={() => {
+            window.location = "/sound-bars";
+          }}
+          className={styles.card}
         >
-          GitHub Source
-        </a>
-      </footer>
-    </div>
+          <h2>Sound Bars</h2>
+          <p>3D cubes that react to sound from the mic.</p>
+        </section>
+      </main>
+    </>
   );
 }

@@ -1,0 +1,16 @@
+.navbar {
+    background-color: hsl(128, 80%, 40%);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 32px;
+}
+
+.navbar h1 {
+    color: hsl(128, 80%, 100%);
+    margin: 0;
+}
+
+.navbar button {
+    border: none;
+}
