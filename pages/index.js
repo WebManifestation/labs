@@ -23,12 +23,22 @@ export default function Home() {
       <main className={styles.main}>
         <section
           onClick={() => {
+            window.location = "/sine";
+          }}
+          className={styles.card}
+        >
+          <h2>Trippy Sine</h2>
+          <p>Some trippy moving sine waves in 3D</p>
+        </section>
+
+        <section
+          onClick={() => {
             window.location = "/sound-bars";
           }}
           className={styles.card}
         >
           <h2>Sound Bars</h2>
-          <p>3D cubes that react to sound from the mic.</p>
+          <p>3D cubes that react to sound from the mic</p>
         </section>
       </main>
     </>
