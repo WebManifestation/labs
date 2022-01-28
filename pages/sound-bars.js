@@ -232,6 +232,7 @@ class SoundBars extends Component {
               padding: "8px 16px",
               cursor: "pointer",
               fontSize: 20,
+              userSelect: "none",
             }}
             onClick={() => {
               this.addAudioListener();
