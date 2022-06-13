@@ -6,7 +6,7 @@ function Navigation() {
     <nav className={styles.navbar}>
       <h1>Labs</h1>
       <a href="https://github.com/WebManifestation/labs">
-        <Image src="/github-icon.png" width={32} height={32} />
+        <Image alt="github" src="/github-icon.png" width={32} height={32} />
       </a>
     </nav>
   );

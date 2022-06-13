@@ -48,7 +48,7 @@ export default function Home() {
           className={styles.card}
         >
           <h2>Colors Shader</h2>
-          <p>Simon dev's shader tutorial Section 2</p>
+          <p>Simon dev shader tutorial Section 2</p>
         </section>
 
         <section
@@ -58,7 +58,7 @@ export default function Home() {
           className={styles.card}
         >
           <h2>Textures Shader</h2>
-          <p>Simon dev's shader tutorial Section 3</p>
+          <p>Simon dev shader tutorial Section 3</p>
         </section>
       </main>
     </>
