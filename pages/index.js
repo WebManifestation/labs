@@ -40,6 +40,26 @@ export default function Home() {
           <h2>Sound Bars</h2>
           <p>3D cubes that react to sound from the mic</p>
         </section>
+
+        <section
+          onClick={() => {
+            window.location = "/colors-shader";
+          }}
+          className={styles.card}
+        >
+          <h2>Colors Shader</h2>
+          <p>Simon dev's shader tutorial Section 2</p>
+        </section>
+
+        <section
+          onClick={() => {
+            window.location = "/textures-shader";
+          }}
+          className={styles.card}
+        >
+          <h2>Textures Shader</h2>
+          <p>Simon dev's shader tutorial Section 3</p>
+        </section>
       </main>
     </>
   );
