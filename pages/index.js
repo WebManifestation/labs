@@ -60,6 +60,36 @@ export default function Home() {
           <h2>Textures Shader</h2>
           <p>Simon dev shader tutorial Section 3</p>
         </section>
+
+        <section
+          onClick={() => {
+            window.location = "/functions-one-shader";
+          }}
+          className={styles.card}
+        >
+          <h2>Shader functions 1</h2>
+          <p>Simon dev shader tutorial Section 4 part one</p>
+        </section>
+
+        <section
+          onClick={() => {
+            window.location = "/functions-two-shader";
+          }}
+          className={styles.card}
+        >
+          <h2>Shader functions 2</h2>
+          <p>Simon dev shader tutorial Section 4 part two</p>
+        </section>
+
+        <section
+          onClick={() => {
+            window.location = "/functions-three-shader";
+          }}
+          className={styles.card}
+        >
+          <h2>Shader functions 3</h2>
+          <p>Simon dev shader tutorial Section 4 part three</p>
+        </section>
       </main>
     </>
   );
