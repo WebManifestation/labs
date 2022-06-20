@@ -10,6 +10,8 @@ void main() {
   vec4 diffuseSample = texture2D(diffuse, vUvs);
   // vec4 overlaySample = texture2D(overlay, vUvs);
   gl_FragColor = diffuseSample * tint;
+  // gl_FragColor = diffuseSample;
+  // gl_FragColor = smoothstep(vec4(0.0), vec4(1.0), diffuseSample);
   // gl_FragColor = diffuseSample * overlaySample;
   // gl_FragColor = vec4(vec3(overlaySample.w), 1.0);
   // gl_FragColor = mix(diffuseSample, overlaySample, overlaySample.w);
