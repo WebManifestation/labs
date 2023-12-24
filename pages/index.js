@@ -21,6 +21,16 @@ export default function Home() {
       </p>
 
       <main className={styles.main}>
+				<section
+          onClick={() => {
+            window.location = "/basic";
+          }}
+          className={styles.card}
+        >
+          <h2>Basic Scene</h2>
+          <p>A cube with two directional lights.</p>
+        </section>
+				
         <section
           onClick={() => {
             window.location = "/sine";
